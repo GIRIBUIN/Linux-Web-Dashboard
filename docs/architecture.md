@@ -82,7 +82,11 @@
 ### 3.2 Data Flow
 > 요청이 들어오면 내부에서 어떤 순서로 데이터가 처리되는지 
 
-![data-flow](../assets/images/docs/data-flow.png)
+<p align="center">
+  <a href="../assets/images/docs/data-flow.png">
+    <img src="../assets/images/docs/data-flow.png" alt="data-flow" width="500">
+  </a>
+</p>
 
 - Client가 /metrics/memory request
 - route handler가 service 호출

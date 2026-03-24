@@ -47,19 +47,42 @@
 ### 2026-03-23
 
 #### Summary
-- Started project documentation setup
+- project documentation setup
 
 #### What I did
 - Created core documentation files under `docs/`
 - Defined the purpose of each document
 - Decided to write design documents before implementation
 
-#### What I learned
-- 
-
-#### Issues / Blockers
-- 
-
 #### Next step
 - Define the initial API scope
 - Write architecture overview
+
+### 2026-03-24
+
+#### Summary
+- Completed first draft of architecture.md
+- Started api-spec.md for core endpoints
+
+#### What I did
+- Project goal, scope, and layer structure 정리
+- Wrote data flow from client request to `/proc` parsing
+- Added endpoint drafts for `/health` and `/metrics/*`
+
+#### What I learned
+- `/proc/stat` uses cumulative counters, so CPU usage needs delta calculation
+- `MemAvailable` is more practical than `MemFree`
+
+#### Issues / Blockers
+- layer를 왜 나누는지 설명하는 게 어려웠음
+  - 역할 구분은 이해했지만, 분리 이유를 문장으로 정리하는 게 쉽지 않았음
+  - Solution: 각 layer의 책임과 분리 이유를 따로 적으면서 정리함
+
+- 데이터 플로우와 다이어그램 표현이 헷갈렸음
+  - Schema의 위치와 역할을 runtime flow 기준으로 어떻게 표현할지 혼란이 있었음
+  - Solution: Schema는 별도 실행 노드가 아니라 API layer 내부 적용 단계로 정리함
+
+#### Next step
+- Write decision log entries
+- Start implementing `GET /health`
+- Implement `/metrics/memory`

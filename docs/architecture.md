@@ -34,7 +34,7 @@
 
 - metric 데이터를 DB에 저장하거나 시계열 데이터로 관리하지 않는다.
 - 멀티 호스트 환경이나 중앙 집중식 모니터링 서버는 구현하지 않는다.
-- 로그인, 권환 관리, 사용자별 기능 분리는 다루지 않는다.
+- 로그인, 권한 관리, 사용자별 기능 분리는 다루지 않는다.
 - 화려한 웹 UI나 복잡한 프론트엔드 기능은 프로젝트에 반영하지 않는다.
 - production-grade alerting, external integrations, large-scale deployment는 이번 범위에서 제외한다.
   - production-grade alerting: 실제 운영 서비스에서 쓰는 알림 시스템

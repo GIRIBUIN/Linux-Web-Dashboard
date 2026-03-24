@@ -86,3 +86,30 @@
 - Write decision log entries
 - Start implementing `GET /health`
 - Implement `/metrics/memory`
+
+### 2026-03-24 (Continued)
+
+#### Summary
+- Remote development environment setup on Ubuntu VM
+
+#### What I did
+- Installed **VSCode Remote-SSH** to develop on the Linux environment.
+- Configured **VirtualBox Port Forwarding** (Host:2222 -> Guest:22).
+- Successfully established an SSH connection to the Ubuntu VM.
+- Synchronized source code from Windows to the Linux environment.
+- Created a new **Python virtual environment (venv)** on Linux.
+
+#### What I learned
+- **Kernel Dependency**: Reconfirmed that `/proc` is a Linux-specific feature, making the Linux environment mandatory.
+- **NAT Networking**: Understood why the host cannot directly access the guest IP (`10.0.2.15`) without port forwarding.
+- **Remote Workflow**: Experienced the separation of the editor (Windows) and the execution environment (Linux).
+
+#### Issues / Blockers
+- **Connection Failure to 10.0.2.15**
+  - **Symptoms**: VSCode failed to connect to the internal NAT IP of the VM.
+  - **Cause**: The NAT network model blocks inbound traffic from the host by default.
+  - **Resolution**: Implemented port forwarding in VirtualBox settings to map `127.0.0.1:2222` to the guest's port 22.
+
+#### Next step
+- Start implementing `GET /health`
+- Implement `/metrics/memory`

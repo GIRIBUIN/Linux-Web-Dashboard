@@ -58,6 +58,8 @@
 - Define the initial API scope
 - Write architecture overview
 
+---
+
 ### 2026-03-24
 
 #### Summary
@@ -83,11 +85,10 @@
   - Solution: Schema는 별도 실행 노드가 아니라 API layer 내부 적용 단계로 정리함
 
 #### Next step
-- Write decision log entries
-- Start implementing `GET /health`
+- Implement `GET /health`
 - Implement `/metrics/memory`
 
-### 2026-03-24 (Continued)
+### 2026-03-24
 
 #### Summary
 - Remote development environment setup on Ubuntu VM
@@ -111,5 +112,31 @@
   - **Resolution**: Implemented port forwarding in VirtualBox settings to map `127.0.0.1:2222` to the guest's port 22.
 
 #### Next step
-- Start implementing `GET /health`
+- Implement `GET /health`
+- Implement `/metrics/memory`
+
+---
+
+### 2026-03-25
+
+#### Summary
+- Set up the Ubuntu VM development environment
+- Implemented and tested the first FastAPI endpoint: `GET /health`
+
+#### What I did
+- Cloned the repository in Ubuntu VM and switched to the `dev` branch
+- Created a virtual environment in `backend/`
+- Installed `fastapi` and `uvicorn[standard]`
+- Wrote the first FastAPI app and confirmed `/health` works
+
+#### What I learned
+- This project should be developed and tested in Linux because it depends on `/proc`
+- `uvicorn app.main:app --reload` should be run from `backend/` based on the current import path
+
+#### Issues / Blockers
+- Windows Python version and VSCode interpreter setting were confusing at first
+  - Solution: decided to use Ubuntu Python as the actual runtime environment
+
+#### Next step
+- Organize `/health` route structure
 - Implement `/metrics/memory`

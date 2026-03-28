@@ -91,7 +91,7 @@
 - Client가 /metrics/memory request
 - route handler가 service 호출
 - service가 parser 호출
-- parser가 /proc/meminfo 수집
+- parser가 /proc/meminfo에서 MemTotal, MemAvailable 수집
 - service가 usage 계산
 - schema에 맞게 JSON 변환
 
@@ -166,6 +166,7 @@ Why:
 - `MemFree`는 완전히 비어 있는 메모리만 의미하므로 실제 사용 가능 메모리를 충분히 설명하지 못한다.
 - Linux는 buffer/cache를 위해 메모리를 사용하지만, 이 메모리는 필요 시 일부 회수할 수 있다.
 - 따라서 memory usage 계산에는 `MemFree`보다 `MemAvailable`을 사용하는 것이 더 적절하다.
+- 실측 비교 시 약간의 차이는 정상이다.
 
 Notes:
 - `shared`, `buffers`, `cached` 값은 초기 버전에서는 상세 메트릭으로 사용하지 않는다.

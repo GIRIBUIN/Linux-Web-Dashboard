@@ -140,3 +140,34 @@
 #### Next step
 - Organize `/health` route structure
 - Implement `/metrics/memory`
+
+---
+### 2026-03-29
+
+#### Summary
+- Implemented and verified the `/metrics/memory` endpoint
+
+#### What I did
+- Created `parsers/memory.py`, `services/memory.py`, `schemas/memory.py`, and `api/routes/memory.py`
+- Parsed `MemTotal` and `MemAvailable` from `/proc/meminfo`
+- Calculated `used_kb` and `usage_percent` in the service layer
+- Registered the memory router in `main.py`
+- Tested `/metrics/memory` with `curl` and `jq`
+- Compared API response with `/proc/meminfo` values
+
+#### What I learned
+- Parser should focus on reading and parsing raw values, while calculation logic should stay in the service layer
+- `MemAvailable` changes slightly over time, so small differences between API output and manual `grep` results are normal
+- `jq` makes JSON response checking much easier in the terminal
+
+#### Issues / Blockers
+- I first put both parsing and calculation logic into the parser
+  - Solution: moved `used_kb` and `usage_percent` calculation into the service layer to match the architecture design
+
+- API response and manual `/proc/meminfo` values did not match exactly
+  - Solution: confirmed that the difference came from time gap between API call and manual check, and verified that the calculation logic itself was correct
+
+#### Next step
+- Write a short decision log entry if needed
+- Commit and push today's work to the `dev` branch
+- Decide whether to implement CPU or network metrics next

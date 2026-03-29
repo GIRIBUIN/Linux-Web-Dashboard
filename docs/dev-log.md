@@ -168,6 +168,32 @@
   - Solution: confirmed that the difference came from time gap between API call and manual check, and verified that the calculation logic itself was correct
 
 #### Next step
-- Write a short decision log entry if needed
-- Commit and push today's work to the `dev` branch
-- Decide whether to implement CPU or network metrics next
+- Start implementing network metrics next
+---
+### 2026-03-29
+
+#### Summary
+- Implemented and verified the `/metrics/network` endpoint
+
+#### What I did
+- Created `parsers/network.py`, `services/network.py`, `schemas/network.py`, and `api/routes/network.py`
+- Parsed interface metrics from `/proc/net/dev`
+- Extracted `rx_bytes`, `tx_bytes`, `rx_packets`, and `tx_packets`
+- Registered the network router in `main.py`
+- Tested `/metrics/network` with `curl` and `jq`
+- Compared API response with `/proc/net/dev` values
+
+#### What I learned
+- `/proc/net/dev` provides cumulative counters for each network interface
+- Small differences between API output and manual checks are normal because network values keep changing
+- The network endpoint can be implemented cleanly with the same parser → service → schema → route structure used for memory
+
+#### Issues / Blockers
+- At first, I was unsure whether the API response should use `name` or `interface` as the field name
+  - Solution: used `interface` consistently across parser, service, schema, and route
+
+- API response and `/proc/net/dev` values did not match exactly
+  - Solution: confirmed that the values are cumulative counters and change continuously, so small differences between checks are expected
+
+#### Next step
+- Start implementing `/metrics/cpu`

@@ -215,3 +215,36 @@ network와 disk는 raw counter를 그대로 보여줄 수도 있고, bytes/sec, 
 
 ### Impact
 `/metrics/network`와 `/metrics/disk`는 초기 버전에서 raw counter를 반환하고, rate 기반 endpoint는 추후 확장 기능으로 고려한다.
+
+---
+## Decision: Expose only main disk devices in the initial version
+
+- **Date:** 2026-03-30
+- **Status:** Accepted
+
+### Context
+`/proc/diskstats`에는 `loop*`, `ram*`, `sr*` 같은 가상/임시 디바이스와 `sda1`, `nvme0n1p1` 같은 파티션 엔트리가 포함되어 있다. 모든 엔트리를 보여주기보다는 주요 디스크 장치만 보여주는 것으로 결정했다. 
+
+### Decision
+`sda`, `nvme` 등의 주요 디스크 장치만 `/metrics/disk`에서 반환한다. `loop*`, `ram*`, `sr*`와 파티션 엔트리는 초기 버전에서 제외한다.
+
+### Alternatives Considered
+- 모든 엔트리를 보여주기
+- 메인 디스크 장치만 보여주기
+- 메인 장치와 파티션을 별도로 보여주기
+
+### Reason
+초기 버전에서는 디스크 엔드포인트를 단순하고 설명하기 쉽게 유지하는 것이 목표다.
+
+### Trade-offs
+- 장점:
+  - response 구조가 단순해진다.
+  - 설명과 검증이 더 쉬워진다.
+  - 초기 학습 중심 버전에 더 적합하다.
+- 단점:
+  - partition-level visibility가 제공되지 않는다.
+  - 일부 디바이스 정보가 의도적으로 생략된다.
+
+### Impact
+디스크 parser는 `loop*`, `ram*`, `sr*`와 파티션 엔트리를 필터링한다. `/metrics/disk` 엔드포인트는 현재 환경에서 주요 디스크 장치만 반환한다.
+`/metrics/disk` 엔드포인트는 현재 환경에서 주요 디스크 장치만 반환한다.

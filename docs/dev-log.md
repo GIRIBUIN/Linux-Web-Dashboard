@@ -225,3 +225,32 @@
 
 #### Next step
 - Start implementing `/metrics/disk`
+
+---
+
+#### Summary
+- Implemented and verified the `/metrics/disk` endpoint
+
+#### What I did
+- Created `parsers/disk.py`, `services/disk.py`, `schemas/disk.py`, and `api/routes/disk.py`
+- Parsed disk metrics from `/proc/diskstats`
+- Filtered out non-target devices such as `loop*`, `ram*`, `sr*`, and partition entries for the initial version
+- Returned `reads_completed`, `writes_completed`, `sectors_read`, and `sectors_written`
+- Registered the disk router in `main.py`
+- Tested `/metrics/disk` with `curl` and `jq`
+
+#### What I learned
+- `/proc/diskstats` contains many device entries, but not all of them are useful for the initial version
+- In a VM environment, the main disk may appear as `sda` even if the host machine uses an SSD
+  - VM에는 SSD 설정을 안했기 때문이다.
+- For the first version, exposing only the main block device is simpler than including partitions and virtual devices
+
+#### Issues / Blockers
+- At first, `sr0` was included in the result together with `sda`
+  - Solution: filtered out `sr*` devices along with `loop*`, `ram*`, and partition entries
+
+- I was confused because the host machine uses SSD, but `/proc/diskstats` did not show `nvme0n1`
+  - Solution: understood that the Ubuntu VM sees a virtual disk device, so `sda` is the expected main device in this environment
+
+#### Next step
+- 

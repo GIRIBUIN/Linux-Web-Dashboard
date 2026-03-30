@@ -197,3 +197,31 @@
 
 #### Next step
 - Start implementing `/metrics/cpu`
+
+---
+
+### 2026-03-30
+
+#### Summary
+- Implemented and verified the `/metrics/cpu` endpoint
+
+#### What I did
+- Created `parsers/cpu.py`, `services/cpu.py`, `schemas/cpu.py`, and `api/routes/cpu.py`
+- Parsed CPU counters from the first `cpu` line in `/proc/stat`
+- Implemented two-sample delta calculation for CPU usage in the service layer
+- Returned `usage_percent` and selected raw counters in the response
+- Registered the CPU router in `main.py`
+- Tested `/metrics/cpu` with `curl` and `jq`
+
+#### What I learned
+- `/proc/stat` does not provide an instantaneous CPU percentage
+- CPU usage must be calculated from the difference between two snapshots
+- `usage_percent` should represent total CPU usage, not only user mode usage
+- For the initial version, it is better to expose a simple response structure and keep extra complexity low
+
+#### Issues / Blockers
+- CPU is harder to verify directly than memory or network because the result is derived from two samples
+  - Solution: verified that the endpoint response structure was correct and that `usage_percent` stayed in a reasonable range
+
+#### Next step
+- Start implementing `/metrics/disk`

@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 
 from app.api.routes.cpu import router as cpu_router
+from app.api.routes.disk import router as disk_router
 from app.api.routes.health import router as health_router
 from app.api.routes.memory import router as memory_router
 from app.api.routes.network import router as network_router
@@ -20,3 +21,4 @@ app.include_router(health_router)
 app.include_router(memory_router)
 app.include_router(network_router)
 app.include_router(cpu_router)
+app.include_router(disk_router)

@@ -10,6 +10,9 @@ Linux Web Dashboard 프로젝트의 설계 및 개발 과정을 기록한 문서
 ## 📊 System Metrics (Features)
 각 메트릭별 파싱 로직 및 API 명세입니다.
 - [memory-metrics.md](metrics/memory-metrics.md): 시스템 메모리 정보 추출 및 사용률 계산 로직
+- [cpu-metrics.md](metrics/cpu-metrics.md): CPU 사용률 계산을 위한 two-sample delta 방식 설명
+- [disk-metrics.md](metrics/disk-metrics.md): 디스크 I/O 관련 raw counter 수집 및 API 응답 형태 정의
+- [network-metrics.md](metrics/network-metrics.md): 네트워크 인터페이스별 트래픽 정보 추출 및 API 명세
 
 ## 🏗️ Architecture & Specs
 - [architecture.md](architecture.md): 전체 시스템 구조 및 데이터 흐름도
